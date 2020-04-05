@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/scala-graphs.iml" filepath="$PROJECT_DIR$/scala-graphs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/scala.iml" filepath="$PROJECT_DIR$/src/main/scala.iml" />
     </modules>
   </component>
 </project>
