@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'scala'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    scalaMajorVersion = '2.13'
+    scalaVersion = "${scalaMajorVersion}.1"
+}
+
+dependencies {
+    compile  "org.scala-lang:scala-library:${scalaVersion}"
+
+    testCompile 'junit:junit:4.12'
+    testCompile "org.scalatest:scalatest_${scalaMajorVersion}:3.2.0-M4"
+}
+
