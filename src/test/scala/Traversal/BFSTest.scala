@@ -18,7 +18,7 @@ class BFSTest extends AnyFlatSpec with Matchers {
     .addEdge("E","B")
     .addEdge("E", "F")
 
-  "Iterative traversal" should "return visited nodes" in {
+  it should "return visited nodes" in {
 
     val visitedFromAActual = BFS.iterativeBFS("A", graph, print)
     val visitedFromAExpected = List("A", "B", "C", "D", "E", "F")
