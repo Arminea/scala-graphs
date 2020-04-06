@@ -33,3 +33,43 @@ def addEdge(from: N, to: N): Graph[N]
 def neighbours(node: N): List[N]
 ```
 
+### Traversing graphs
+
+#### Depth first search
+
+Algorithm starts at the root node and explores as far as possible along each 
+along each branch before backtracking. It can be implemented recursively or 
+iteratively. DFS takes time `Θ(|N| + |E|)` where `N` is the number of nodes 
+and `E` is the number of edges.
+
+To avoid infinite run for cyclic graph we have to keep track of explored nodes.
+
+Pseudocode of recursive approach: 
+
+```
+visited_nodes = {}
+
+DFS(node):
+    if visited_nodes not contain node:
+        process node
+        add node to visited_nodes
+        foreach neighbour in node.neighbours
+            DFS(neighbour)
+```
+
+Pseudocode of iterative approach:
+
+```
+DFS(node):
+    visited_nodes = {}
+    stack = {node}
+
+    while stack not empty:
+        head = stack.pop
+        if visited_nodes not contain head:
+            process node
+            add node to visited_nodes
+            add node.neighbours to stack
+```
+
+#### Breadth first search
