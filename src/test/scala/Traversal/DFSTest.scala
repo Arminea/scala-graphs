@@ -26,12 +26,24 @@ class DFSTest extends AnyFlatSpec with Matchers {
     visitedFromAActual.toList.sorted shouldBe visitedFromAExpected
   }
 
+  "Recursive traversal" should "return empty set for non-existing node" in {
+    val visitedNodes = DFS.recursiveDFS("V", graph, print)
+
+    visitedNodes shouldBe empty
+  }
+
   "Iterative traversal" should "return visited nodes" in {
 
     val visitedFromAActual = DFS.iterativeDFS("A", graph, print)
     val visitedFromAExpected = List("A", "B", "C", "D", "E", "F")
 
     visitedFromAActual.toList.sorted shouldBe visitedFromAExpected
+  }
+
+  "Iterative traversal" should "return empty set for non-existing node" in {
+    val visitedNodes = DFS.iterativeDFS("V", graph, print)
+
+    visitedNodes shouldBe empty
   }
 
 }
