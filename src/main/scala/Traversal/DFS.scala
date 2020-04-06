@@ -38,9 +38,8 @@ object DFS {
    */
   def iterativeDFS[N](start: N, graph: Graph[N], f: N => Unit): Set[N] = {
 
-    val visitedNodes = Set[N](start)
     // LazyList - an immutable linked list that evaluates elements in order and only when needed
-    LazyList.iterate((List(start), visitedNodes)) {
+    LazyList.iterate((List(start), Set[N](start))) {
       case(stack, visited) => {
         // get head of the stack
         val node = stack.head
