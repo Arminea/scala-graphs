@@ -65,11 +65,34 @@ DFS(node):
     stack = {node}
 
     while stack not empty:
-        head = stack.pop
-        if visited_nodes not contain head:
-            process node
-            add node to visited_nodes
-            add node.neighbours to stack
+        n = stack.pop
+        if visited_nodes not contain n:
+            process n
+            add n to visited_nodes
+            push all n.neighbours to stack
 ```
 
 #### Breadth first search
+
+Algorithm starts at the root node and explores the neighbors and puts 
+them into the queue. This process is repeated for every node in the 
+queue. Graph is searched in waves. Nodes are processed in order of 
+their distance from the root. BFS takes time `Θ(|N| + |E|)` where 
+`N` is the number of nodes and E is the number of edges.
+
+To avoid infinite run for cyclic graph we have to keep track of explored nodes.
+
+Pseudocode:
+
+```
+BFS(node):
+    visited_nodes = {}
+    queue = {node}
+
+    while queue not empty:
+        n = queue.dequeue
+        if visited_nodes not contain n:
+            process n
+            add n to visited_nodes
+            enqueue all n.neighbours to queue
+```
