@@ -2,6 +2,18 @@
 
 Associated Udemy course: [Implementing graph algorithms using Scala](https://www.udemy.com/course/implementing-graph-algorithms-using-scala)
 
+####Table of content:
+
+- [Graph representation](#repre)
+- [Traversing graphs](#traversing)
+  - [DFS](#dfs)
+  - [BFS](#bfs)
+- [Topological sorting](#topological)
+  - [Kahn's algorithm](#kahn)
+  - [DFS](#dfs-top)
+
+<a name="repre" />
+
 ### Graph representation
 
 Graph can be represented by:
@@ -32,8 +44,11 @@ def edges: List[(N, N)]
 def addEdge(from: N, to: N): Graph[N]
 def neighbours(node: N): List[N]
 ```
+<a name="traversing" />
 
 ### Traversing graphs
+
+<a name="dfs" />
 
 #### Depth first search
 
@@ -72,6 +87,8 @@ DFS(node):
             push all n.neighbours to stack
 ```
 
+<a name="bfs" />
+
 #### Breadth first search
 
 Algorithm starts at the root node and explores the neighbors and puts 
@@ -97,6 +114,8 @@ BFS(node):
             enqueue all n.neighbours to queue
 ```
 
+<a name="topological" />
+
 ### Topological sorting
 
 - Linear ordering of nodes such that for every directed edge `uv` from 
@@ -105,6 +124,8 @@ node `u` to node `v`, `u` comes before `v` in the ordering.
 - Works only for directed acyclic graphs (DAG).
 
 - There are multiple topological sorting possible for a graph.
+
+<a name="kahn" />
 
 #### Kahn's algorithm
 
@@ -133,3 +154,8 @@ kahn(graph):
     else
         return results
 ```
+
+<a name="dfs-top" />
+
+#### Depth first search
+
