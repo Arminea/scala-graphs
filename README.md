@@ -96,3 +96,40 @@ BFS(node):
             add n to visited_nodes
             enqueue all n.neighbours to queue
 ```
+
+### Topological sorting
+
+- Linear ordering of nodes such that for every directed edge `uv` from 
+node `u` to node `v`, `u` comes before `v` in the ordering.
+
+- Works only for directed acyclic graphs (DAG).
+
+- There are multiple topological sorting possible for a graph.
+
+#### Kahn's algorithm
+
+Algorithm works by finding nodes which have no incoming edges and removing all 
+outgoing edges from these nodes.
+
+Pseudocode:
+
+```
+kahn(graph):
+    results = {}
+    // set of nodes with no incoming edges
+    startNodes = findStartNodes(graph)
+
+    while startNodes not empty:
+        n = removeFirst(startNodes)
+        add n to results
+        
+        foreach neighbour of n:
+            remove edge from n to neighbour
+            if neighbour has no incoming edges:
+                add neighbour to startNodes
+
+    if graph has edges:
+        error
+    else
+        return results
+```
