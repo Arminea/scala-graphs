@@ -7,6 +7,14 @@ import scala.annotation.tailrec
 
 object Kahn {
 
+  /**
+   * Function sorts all nodes topologically.
+   * Implementation of Kahn's algorithm.
+   *
+   * @param graph   graph
+   * @tparam N
+   * @return        list of topologically sorted actions
+   */
   def sort[N](graph: Graph[N]): List[N] = {
 
     val inDegree: Map[N, Int] = buildInDegreeMap(graph)
