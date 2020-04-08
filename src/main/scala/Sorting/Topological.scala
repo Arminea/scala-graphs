@@ -1,24 +1,36 @@
-package TopologicalSorting
+package Sorting
 
 import Utils.Utils
 import main.Graphs.Graph
 
 import scala.annotation.tailrec
 
-object Kahn {
+object Topological {
 
   /**
-   * Function sorts all nodes topologically.
-   * Implementation of Kahn's algorithm.
+   * Function sorts all nodes topologically according to Kahn's algorithm.
    *
    * @param graph   graph
    * @tparam N
    * @return        list of topologically sorted actions
    */
-  def sort[N](graph: Graph[N]): List[N] = {
+  def sortKahn[N](graph: Graph[N]): List[N] = {
+
+    def buildInDegreeMap[N](graph: Graph[N]): Map[N, Int] = {
+      val zeroMap = graph.nodes.map(n => n -> 0).toMap
+      val edgesCnt = graph.edges.groupBy(e => e._2)
+        .map{
+          case (node, edges) => node -> edges.size
+        }
+
+      zeroMap ++ edgesCnt
+    }
+
 
     val inDegree: Map[N, Int] = buildInDegreeMap(graph)
     val startNodes = inDegree.filter(_._2 == 0)
+
+    if(startNodes.isEmpty) throw new Exception("There is no node without incoming edges. Graph contains cycles.")
 
     @tailrec
     def sort0(startNodes: Map[N, Int], result: List[N], inDegree: Map[N, Int]): List[N] = {
@@ -42,16 +54,6 @@ object Kahn {
 
     sort0(startNodes, List[N](), inDegree)
 
-  }
-
-  private def buildInDegreeMap[N](graph: Graph[N]): Map[N, Int] = {
-    val zeroMap = graph.nodes.map(n => n -> 0).toMap
-    val edgesCnt = graph.edges.groupBy(e => e._2)
-      .map{
-        case (node, edges) => node -> edges.size
-      }
-
-    zeroMap ++ edgesCnt
   }
 
 }

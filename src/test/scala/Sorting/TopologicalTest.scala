@@ -1,10 +1,10 @@
-package TopologicalSorting
+package Sorting
 
 import main.Graphs.Graph
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class KahnTest extends AnyFlatSpec with Matchers {
+class TopologicalTest extends AnyFlatSpec with Matchers {
 
   val graph = Graph[String]()
     .addEdge("Logging", "Game")
@@ -19,12 +19,24 @@ class KahnTest extends AnyFlatSpec with Matchers {
     .addEdge("Graphics", "Game")
     .addEdge("AI Engine", "Game")
 
-  it should "topologically sort set of tasks for creating a game" in {
+  "Kahn's algorithm" should "topologically sort set of tasks for creating a game" in {
 
-    val sortedActual = Kahn.sort(graph)
+    val sortedActual = Topological.sortKahn(graph)
     val sortedExpected = List("Commons", "Math", "Physics", "Graphics", "AI Engine", "Logging", "Networking", "Game")
 
     sortedActual shouldBe sortedExpected
+
+  }
+
+  "Kahn's algorithm" should "throw exception if the graph contains cycles" in {
+
+    val noStartingNode = Graph[String]()
+      .addEdge("Egg", "Hen")
+      .addEdge("Hen", "Egg")
+
+    intercept[Exception] {
+      Topological.sortKahn(noStartingNode)
+    }
 
   }
 
