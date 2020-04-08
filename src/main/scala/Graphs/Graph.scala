@@ -16,6 +16,9 @@ trait Graph[N] {
    */
   def edges: List[(N, N)]
 
+
+  def addNode(n: N): Graph[N]
+
   /**
    * Function add an edge between start node and
    * end node and returns a new graph which includes
