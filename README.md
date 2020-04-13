@@ -2,6 +2,18 @@
 
 Associated Udemy course: [Implementing graph algorithms using Scala](https://www.udemy.com/course/implementing-graph-algorithms-using-scala)
 
+#### Table of content:
+
+- [Graph representation](#repre)
+- [Traversing graphs](#traversing)
+  - [DFS](#dfs)
+  - [BFS](#bfs)
+- [Topological sorting](#topological)
+  - [Kahn's algorithm](#kahn)
+  - [DFS](#dfs-top)
+
+<a name="repre" />
+
 ### Graph representation
 
 Graph can be represented by:
@@ -32,8 +44,11 @@ def edges: List[(N, N)]
 def addEdge(from: N, to: N): Graph[N]
 def neighbours(node: N): List[N]
 ```
+<a name="traversing" />
 
 ### Traversing graphs
+
+<a name="dfs" />
 
 #### Depth first search
 
@@ -72,6 +87,8 @@ DFS(node):
             push all n.neighbours to stack
 ```
 
+<a name="bfs" />
+
 #### Breadth first search
 
 Algorithm starts at the root node and explores the neighbors and puts 
@@ -95,4 +112,75 @@ BFS(node):
             process n
             add n to visited_nodes
             enqueue all n.neighbours to queue
+```
+
+<a name="topological" />
+
+### Topological sorting
+
+- Linear ordering of nodes such that for every directed edge `uv` from 
+node `u` to node `v`, `u` comes before `v` in the ordering.
+
+- Works only for directed acyclic graphs (DAG).
+
+- There are multiple topological sorting possible for a graph.
+
+<a name="kahn" />
+
+#### Kahn's algorithm
+
+Algorithm works by finding nodes which have no incoming edges and removing all 
+outgoing edges from these nodes.
+
+Pseudocode:
+
+```
+kahn(graph):
+    results = {}
+    // set of nodes with no incoming edges
+    startNodes = findStartNodes(graph)
+
+    while startNodes not empty:
+        n = removeFirst(startNodes)
+        add n to results
+        
+        foreach neighbour of n:
+            remove edge from n to neighbour
+            if neighbour has no incoming edges:
+                add neighbour to startNodes
+
+    if graph has edges:
+        error
+    else
+        return results
+```
+
+<a name="dfs-top" />
+
+#### Depth first search
+
+The algorithm loops through each node of the graph, in an arbitrary order, 
+initiating a depth-first search that terminates when it hits any node 
+that has already been visited since the beginning of the topological 
+sort or the node has no outgoing edges.
+
+Pseudocode:
+
+```
+DFSsort(graph):
+    results = {}
+    visited = {}
+
+    foreach node in graph:
+        if node not in visited:
+            topologicalDFS(node, results, visited)
+
+    return results
+
+topologicalDFS(node, results, visited):
+    add node to visited
+    foreach neighbour of n:
+        if neighbour not in visited:
+            topologicalDFS(neighbour, results, visited)
+    add node to results
 ```

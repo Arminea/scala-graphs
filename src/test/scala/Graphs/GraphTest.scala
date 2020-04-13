@@ -8,6 +8,7 @@ class GraphTest extends AnyFlatSpec with Matchers {
 
   val graph = Graph[String]()
       .addEdge("London", "Lisbon")
+      .addEdge("London", "Bucharest")
       .addEdge("Lisbon", "Madrid")
       .addEdge("Madrid", "London")
       .addEdge("Madrid", "Rome")
@@ -15,14 +16,14 @@ class GraphTest extends AnyFlatSpec with Matchers {
       .addEdge("Paris", "Rome")
 
   it should "contain all cities" in {
-    val citiesExpected = List("London", "Lisbon", "Madrid", "Rome", "Paris")
+    val citiesExpected = List("London", "Lisbon", "Madrid", "Rome", "Paris", "Bucharest")
     val citiesActual = graph.nodes
     citiesExpected should contain theSameElementsAs citiesActual
 
   }
 
   it should "contain all edges" in {
-    val edgesExpected = List(("London","Lisbon"), ("Lisbon", "Madrid"), ("Madrid", "London"),
+    val edgesExpected = List(("London","Lisbon"), ("London", "Bucharest"), ("Lisbon", "Madrid"), ("Madrid", "London"),
                             ("Madrid", "Rome"), ("Rome", "London"), ("Paris", "Rome"))
     val edgesActual = graph.edges
 
