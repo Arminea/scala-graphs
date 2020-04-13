@@ -40,4 +40,14 @@ class TopologicalTest extends AnyFlatSpec with Matchers {
 
   }
 
+  "DFS" should "topologically sort set of tasks for creating a game" in {
+
+    val sortedActual = Topological.sortDFS(graph)
+
+    val sortedExpected = List("Logging", "Networking", "Commons", "Math", "AI Engine", "Graphics", "Physics", "Game")
+
+    sortedActual shouldBe sortedExpected
+
+  }
+
 }

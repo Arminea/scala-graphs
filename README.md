@@ -2,7 +2,7 @@
 
 Associated Udemy course: [Implementing graph algorithms using Scala](https://www.udemy.com/course/implementing-graph-algorithms-using-scala)
 
-####Table of content:
+#### Table of content:
 
 - [Graph representation](#repre)
 - [Traversing graphs](#traversing)
@@ -159,3 +159,28 @@ kahn(graph):
 
 #### Depth first search
 
+The algorithm loops through each node of the graph, in an arbitrary order, 
+initiating a depth-first search that terminates when it hits any node 
+that has already been visited since the beginning of the topological 
+sort or the node has no outgoing edges.
+
+Pseudocode:
+
+```
+DFSsort(graph):
+    results = {}
+    visited = {}
+
+    foreach node in graph:
+        if node not in visited:
+            topologicalDFS(node, results, visited)
+
+    return results
+
+topologicalDFS(node, results, visited):
+    add node to visited
+    foreach neighbour of n:
+        if neighbour not in visited:
+            topologicalDFS(neighbour, results, visited)
+    add node to results
+```

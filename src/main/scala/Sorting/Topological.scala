@@ -56,4 +56,35 @@ object Topological {
 
   }
 
+
+
+  /**
+   * Function sorts all nodes topologically using DFS.
+   *
+   * @param graph   graph
+   * @tparam N
+   * @return        list of topologically sorted actions
+   */
+  def sortDFS[N](graph: Graph[N]): List[N] = {
+
+    case class DfsStep[N](visited: Set[N], sort: List[N])
+
+    def sortDfs0(node: N, dfsStep: DfsStep[N]): DfsStep[N] = {
+      if(dfsStep.visited.contains(node)) {
+        dfsStep
+      }
+      else {
+        val preDfsStep = dfsStep.copy(visited = dfsStep.visited + node)
+        val postDfsStep = graph.neighbours(node)
+          .foldLeft(preDfsStep)((step, n) => sortDfs0(n, step))
+
+        postDfsStep.copy(sort = node +: postDfsStep.sort)
+      }
+    }
+
+    // call sort for every node
+    graph.nodes.foldLeft(DfsStep(Set[N](), Nil))((step, n) => sortDfs0(n, step)).sort
+
+  }
+
 }
