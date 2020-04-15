@@ -11,6 +11,8 @@ Associated Udemy course: [Implementing graph algorithms using Scala](https://www
 - [Topological sorting](#topological)
   - [Kahn's algorithm](#kahn)
   - [DFS](#dfs-top)
+- [Cycle detection](#cycle-detection)
+  -[DFS](#dfs-cycles)
 
 <a name="repre" />
 
@@ -183,4 +185,39 @@ topologicalDFS(node, results, visited):
         if neighbour not in visited:
             topologicalDFS(neighbour, results, visited)
     add node to results
+```
+
+<a name="cycle-detection" />
+
+### Cycle detection
+
+**Cycle** is a non-empty trail in which the first and last nodes are repeated.
+
+Cycle detection can be used for detecting deadlocks in concurrent systems.
+
+<a name="dfs-cycles" />
+
+#### Depth first search
+
+For DFS from every node keep track of visiting nodes in the stack. If the 
+node is already present in the stack (back edge), the cycle was found.
+
+Pseudocode:
+
+```
+visited = {}
+
+containsCycle(node, ancestors = {}):
+    if node is in ancestors:
+        true
+    if node is in visited:
+        return false
+
+    add node to visited
+    cycle = false
+    foreach neighbour of node:
+        cycle = cyclic OR
+            containsCycle(neighbour, ancestors + node)
+
+    return cyclic
 ```
