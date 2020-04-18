@@ -11,6 +11,10 @@ Associated Udemy course: [Implementing graph algorithms using Scala](https://www
 - [Topological sorting](#topological)
   - [Kahn's algorithm](#kahn)
   - [DFS](#dfs-top)
+- [Cycle detection](#cycle-detection)
+  - [DFS](#dfs-cycles)
+  - [Floyd's algorithm](#floyd-cycles)
+
 
 <a name="repre" />
 
@@ -183,4 +187,79 @@ topologicalDFS(node, results, visited):
         if neighbour not in visited:
             topologicalDFS(neighbour, results, visited)
     add node to results
+```
+
+<a name="cycle-detection" />
+
+### Cycle detection
+
+**Cycle** is a non-empty trail in which the first and last nodes are repeated.
+
+Cycle detection can be used for detecting deadlocks in concurrent systems.
+
+<a name="dfs-cycles" />
+
+#### Depth first search
+
+For DFS from every node keep track of visiting nodes in the stack. If the 
+node is already present in the stack (back edge), the cycle was found.
+
+Pseudocode:
+
+```
+visited = {}
+
+containsCycle(node, ancestors = {}):
+    if node is in ancestors:
+        true
+    if node is in visited:
+        return false
+
+    add node to visited
+    cycle = false
+    foreach neighbour of node:
+        cycle = cyclic OR
+            containsCycle(neighbour, ancestors + node)
+
+    return cyclic
+```
+
+<a name="floyd-cycles" />
+
+#### Floyd's algorithm
+
+Also called tortoise and hare algorithm.
+
+Algorithm uses two pointers, which move through nodes at different speed. Each 
+step of the algorithm 'tortoise' pointer increases by one and 'hare' pointer 
+increases by two and then compares the node sequence values at these two pointers.
+If the 'hare' reaches the 'tortoise' during second traversal there is a cycle 
+in the graph. If the 'hare' explores whole graph without meeting the 'tortoise'
+there is no cycle.
+
+Algorithm works only on simple structures. Doesn't work on graphs where multiple 
+paths lead to the same node.
+
+Example of the graph with false positive result:
+
+![Graph representation](imgs/badForFloyd.png)
+
+Pseudocode:
+
+```
+move(stack):
+    node = stack.pop
+    if node != null
+        push neighbours of node to stack
+    return Astack
+
+containsCycle(node):
+    tortoise = move({node})
+    hare = move(move({node}))
+
+    while(peek(hare) != peek(tortoise) and notEmpty(hare)):
+        tortoise = move(tortoise)
+        hare = move(move(hare))
+    
+    return peek(hare) == peek(tortoise)
 ```
