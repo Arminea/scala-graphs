@@ -14,6 +14,8 @@ Associated Udemy course: [Implementing graph algorithms using Scala](https://www
 - [Cycle detection](#cycle-detection)
   - [DFS](#dfs-cycles)
   - [Floyd's algorithm](#floyd-cycles)
+- [Shortest path](#shortest-path)
+  - [Dijkstra's algorithm](#dijkstra)
 
 
 <a name="repre" />
@@ -263,3 +265,54 @@ containsCycle(node):
     
     return peek(hare) == peek(tortoise)
 ```
+
+<a name="shortest-path" />
+
+### Shortest path
+
+Problem of finding a path between two nodes, source and destination, in a graph 
+such that sum of the weights of its edges is minimized in the most optimal way.
+
+Algorithms that solves the shortest path problem:
+
+- Dijkstra's algorithm - solves single-source problem, non-negative edges
+- Bellman-Ford algorithm - solves single-source problem, edges may be negative
+- A* search algorithm - uses heuristics to find single pair shortest path
+- Floyd-Warshall algorithm - solves all pairs shortest path
+
+<a name="dijkstra" />
+
+#### Dijkstra's algorithm
+
+For a given source node, algorithm finds the shortest path between that node and 
+every other nodes. It takes time O(|N|<sup>2</sup>). 
+
+At the beginning source node has distance equal to 0 and all other nodes equal 
+to infinity. Nodes are stored in priority queue which is sorted by distance. 
+In each iteration is selected a top node from queue. For all its neighbors are 
+calculated their tentative distances. The newly calculated tentative distance 
+is compared to the current assigned value and the smaller one is selected. 
+Neighbor is then added into priority queue. Whole path can be reconstructed 
+from predecessors.
+
+Pseudocode:
+
+```
+init(graph, source):
+    dist = map()
+    foreach node in graph
+        dist(node) = inf
+    dist(source) = 0
+    parent = map()
+    unprocessed = createSet(nodes)
+
+shortestPaths(graph, source):
+    init(graph, source)
+    while(isNotEmpty(unprocessed)
+        node = extractMin(unprocessed, dist)
+        foreach neighbour, weight of node:
+            if(dist(node) + weight < dist(neighbour)):
+                dist(neighbour = weight + dist(node)
+                parent(neighbour) = node
+```
+
