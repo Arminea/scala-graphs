@@ -16,6 +16,7 @@ Associated Udemy course: [Implementing graph algorithms using Scala](https://www
   - [Floyd's algorithm](#floyd-cycles)
 - [Shortest path](#shortest-path)
   - [Dijkstra's algorithm](#dijkstra)
+- [Maximum flow](#maximum-flow)
 
 
 <a name="repre" />
@@ -315,4 +316,8 @@ shortestPaths(graph, source):
                 dist(neighbour = weight + dist(node)
                 parent(neighbour) = node
 ```
+
+<a name="maximum-flow" />
+
+### Maximum flow
 
