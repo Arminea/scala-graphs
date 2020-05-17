@@ -5,6 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 class MatrixTest extends AnyFlatSpec with Matchers {
 
+  val nodes = List("S" ,"A" ,"B" ,"C" ,"D", "T")
   val g = Vector(
     /*    S  A  B  C  D  T */
     /*S*/ 0, 4, 8, 0, 0, 0,
@@ -15,30 +16,29 @@ class MatrixTest extends AnyFlatSpec with Matchers {
     /*T*/ 0, 0, 0, 0, 0, 0
   )
 
-  val matrix = Matrix(g, 6)
+  val matrix = AdjMatrix(nodes, g, 6)
 
   it should "contain data" in {
-    matrix.data shouldBe Vector(0, 4, 8, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 3, 0, 6, 2, 0, 0, 0, 0, 0, 3, 11, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0)
+    matrix.weights shouldBe Vector(0, 4, 8, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 3, 0, 6, 2, 0, 0, 0, 0, 0, 3, 11, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0)
   }
 
   it should "return neighbours of B" in {
+    val neighboursExpected = Vector("A", "C", "D")
 
-    val neighboursOfBExpected = Vector(0, 3, 0, 6, 2, 0)
+    matrix.neighbours("B") shouldBe neighboursExpected
+  }
 
-    matrix.neighbours(2) shouldBe neighboursOfBExpected
+  it should "return weights of neighbours of B" in {
+    val neighboursWeightsExpected = Vector(0, 3, 0, 6, 2, 0)
 
+    matrix.neighboursWeights("B") shouldBe neighboursWeightsExpected
   }
 
   it should "update the edge" in {
+    val updatedMatrix = matrix.update("B", "C", 10)
 
-    val n = 2 // node B
-    val m = 3 // node C
-
-    val updatedMatrix = matrix.update(n, m, 10)
-
-    matrix.edgeAt(n, m) shouldBe 6
-    updatedMatrix.edgeAt(n, m) shouldBe 10
-
+    matrix.edgeAt("B", "C") shouldBe 6
+    updatedMatrix.edgeAt("B", "C") shouldBe 10
   }
 
 }

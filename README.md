@@ -60,11 +60,11 @@ def neighbours(node: N): List[N]
 #### Depth first search
 
 Algorithm starts at the root node and explores as far as possible along each 
-along each branch before backtracking. It can be implemented recursively or 
+branch before backtracking. It can be implemented recursively or 
 iteratively. DFS takes time `Θ(|N| + |E|)` where `N` is the number of nodes 
 and `E` is the number of edges.
 
-To avoid infinite run for cyclic graph we have to keep track of explored nodes.
+To avoid infinite run for a cyclic graph we have to keep track of explored nodes.
 
 Pseudocode of recursive approach: 
 
@@ -104,7 +104,7 @@ queue. Graph is searched in waves. Nodes are processed in order of
 their distance from the root. BFS takes time `Θ(|N| + |E|)` where 
 `N` is the number of nodes and E is the number of edges.
 
-To avoid infinite run for cyclic graph we have to keep track of explored nodes.
+To avoid infinite run for a cyclic graph we have to keep track of explored nodes.
 
 Pseudocode:
 
@@ -169,7 +169,7 @@ kahn(graph):
 The algorithm loops through each node of the graph, in an arbitrary order, 
 initiating a depth-first search that terminates when it hits any node 
 that has already been visited since the beginning of the topological 
-sort or the node has no outgoing edges.
+sort, or the node has no outgoing edges.
 
 Pseudocode:
 
@@ -290,9 +290,9 @@ every other nodes. It takes time O(|N|<sup>2</sup>).
 
 At the beginning source node has distance equal to 0 and all other nodes equal 
 to infinity. Nodes are stored in priority queue which is sorted by distance. 
-In each iteration is selected a top node from queue. For all its neighbors are 
+In each iteration is selected a top node from a queue. For all its neighbors are 
 calculated their tentative distances. The newly calculated tentative distance 
-is compared to the current assigned value and the smaller one is selected. 
+is compared to the current assigned value, and the smaller one is selected. 
 Neighbor is then added into priority queue. Whole path can be reconstructed 
 from predecessors.
 
@@ -321,3 +321,24 @@ shortestPaths(graph, source):
 
 ### Maximum flow
 
+Maximum flow problems involve finding a feasible flow through a single-source, 
+single-sink flow network that is maximum. Performance of the algorithm depends
+on chosen implementation of `extractPath` function.
+
+Ford-Fulkerson Algorithm:
+
+```
+maxflow(graph, src, sink):
+    result = 0
+    residualGraph = createResGraph(graph)
+    while (p = extractPath(residualGraph, src, sink) != null):
+        minFlow = min(edgesAlong(p))
+        result = result + minFlow
+        foreach( (a,b) in edgesAlong(p)):
+            update(residualGraph, a, b, (a, b).flow - minFlow)
+            update(residualGraph, b, a, (a, b).flow + minFlow)
+
+    return result
+```
+
+Edmonds-Karp algorithm specify that BFS should be used for `extractPath` function.
