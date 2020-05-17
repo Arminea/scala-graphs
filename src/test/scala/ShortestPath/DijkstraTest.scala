@@ -28,7 +28,6 @@ class DijkstraTest  extends AnyFlatSpec with Matchers {
     .addEdge("Kathmandu", WeightedEdge("Dhaka", 90))
 
   it should "return shortest paths" in {
-
     val resultActual = Dijkstra.findShortestPaths("Mumbai", cities)
     val resultExpected = ShortStep(
       Map("Goa" -> "Mumbai", "Bangkok" -> "Mumbai",
@@ -46,9 +45,7 @@ class DijkstraTest  extends AnyFlatSpec with Matchers {
   }
 
   it should "find shortest path to Dhaka" in {
-
     val pathExpected = List("Mumbai", "Jammu", "Kathmandu", "Dhaka")
-
     val result = Dijkstra.findShortestPaths("Mumbai", cities)
     val pathActual = Dijkstra.findPath("Dhaka", result.parents)
 
