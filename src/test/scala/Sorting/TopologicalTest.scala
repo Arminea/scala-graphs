@@ -20,16 +20,13 @@ class TopologicalTest extends AnyFlatSpec with Matchers {
     .addEdge("AI Engine", "Game")
 
   "Kahn's algorithm" should "topologically sort set of tasks for creating a game" in {
-
     val sortedActual = Topological.sortKahn(graph)
     val sortedExpected = List("Commons", "Math", "Physics", "Graphics", "AI Engine", "Logging", "Networking", "Game")
 
     sortedActual shouldBe sortedExpected
-
   }
 
   "Kahn's algorithm" should "throw exception if the graph contains cycles" in {
-
     val noStartingNode = Graph[String]()
       .addEdge("Egg", "Hen")
       .addEdge("Hen", "Egg")
@@ -37,17 +34,13 @@ class TopologicalTest extends AnyFlatSpec with Matchers {
     intercept[Exception] {
       Topological.sortKahn(noStartingNode)
     }
-
   }
 
   "DFS" should "topologically sort set of tasks for creating a game" in {
-
     val sortedActual = Topological.sortDFS(graph)
-
     val sortedExpected = List("Logging", "Networking", "Commons", "Math", "AI Engine", "Graphics", "Physics", "Game")
 
     sortedActual shouldBe sortedExpected
-
   }
 
 }

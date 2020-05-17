@@ -19,7 +19,6 @@ class DFSTest extends AnyFlatSpec with Matchers {
     .addEdge("E", "F")
 
   "Recursive traversal" should "return visited nodes" in {
-
     val visitedFromAActual = DFS.recursiveDFS("A", graph, print)
     val visitedFromAExpected = List("A", "B", "C", "D", "E", "F")
 
@@ -33,7 +32,6 @@ class DFSTest extends AnyFlatSpec with Matchers {
   }
 
   "Iterative traversal" should "return visited nodes" in {
-
     val visitedFromAActual = DFS.iterativeDFS("A", graph, print)
     val visitedFromAExpected = List("A", "B", "C", "D", "E", "F")
 

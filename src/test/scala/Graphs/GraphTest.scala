@@ -18,6 +18,7 @@ class GraphTest extends AnyFlatSpec with Matchers {
   it should "contain all cities" in {
     val citiesExpected = List("London", "Lisbon", "Madrid", "Rome", "Paris", "Bucharest")
     val citiesActual = graph.nodes
+
     citiesExpected should contain theSameElementsAs citiesActual
 
   }
